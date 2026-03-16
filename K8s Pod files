@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+=====================================================================================================
+1) To create a Pod 
+kubectl apply -f <filename>.yml
+pod/nginx-pod created
+2) To get the pod details and with detailed info
+# kubectl get pod
+# kubectl get pod -o wide
+# to get the detailed info about a pod 
+  kubectl describe pod <podname>
+
+kubectl edit pod <pod_name>
+Purpose:
+It opens the YAML definition of the specified Kubernetes pod in your default text editor, allowing you to edit the pod's configuration live.
+
+How it works:
+Retrieves the resource
+kubectl fetches the current configuration of the pod named <pod_name> from the Kubernetes API server.
+
+Opens in an editor
+
+Uses the editor defined in the environment variables:
+$KUBE_EDITOR (highest priority)
+$EDITOR
+Defaults to vi (Linux/macOS) or notepad (Windows) if none are set.
+Applies changes
+When you save and close the editor:
+
+kubectl sends the updated YAML back to the API server.
+Kubernetes attempts to apply the changes immediately.
+Important Notes:
+Pods are immutable for most fields — you cannot change certain properties (like container images, ports, or volumes) directly.
+If you try, Kubernetes will reject the update.
+For changes to container specs, you usually need to update the Deployment (or other controller) that manages the pod, not the pod itself.
+Editing a pod directly is mostly used for debugging or quick fixes (e.g., changing labels, annotations, or environment variables in some cases).
+✅ Example:
+
+Bash
+
+Copy code
+kubectl edit pod my-app-pod
+This will open the YAML for my-app-pod in your editor. After saving, Kubernetes will apply the allowed changes
