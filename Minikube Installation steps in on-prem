@@ -1,0 +1,10 @@
+Lanuch a Linux server(Ubuntu with LTS )
+CPU -2 , Memory 4G
+apt install openssh-server
+systemctl enable ssh && systemctl start ssh
+sudo apt update && sudo apt upgrade -y
+apt install -y curl wget apt-transport-https ca-certificates docker.io
+systemctl enable docker && systemctl start docker
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+minikube version
