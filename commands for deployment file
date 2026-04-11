@@ -1,0 +1,26 @@
+Steps to check and run the commands of deployment in minikube
+
+#To start Minikube
+minikube start
+#create the deployment file 
+vi deployment.yml
+#then run the command to start pod
+#kubectl create -f deployment.yml
+to check teh status 
+#kubectl get pods
+#kubectl get deployment
+#to see the services
+kubectl get svc
+type should be node port to run the serrvices external
+to get the url of the Pod
+#minikube get svc < servicename>
+To stop the deployement without deleteing it
+kubectl scale deployment <deployment name> --replicas=0
+to test it is working run this comamnd 
+curl https://<node-port-ip>:8443
+to get inside the conitaner which is created 
+kubectl exec -it < deployement-name> -c < containername> -- /bin/bash
+to get the container name 
+kubectl get pods -o jsonpath="{.items[*].spec.containers[*].name}" or kubectl describe pod <podname>
+to stop the minikube
+minikube stop
