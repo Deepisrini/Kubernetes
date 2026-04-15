@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-probes-demo
+  labels:
+    app: nginx-probes
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-probes
+  template:
+    metadata:
+      labels:
+        app: nginx-probes
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.25
+          ports:
+            - containerPort: 80
+
+          # STARTUP PROBE
+          startupProbe:
+            httpGet:
+              path: /
+              port: 80
+            failureThreshold: 30   # Allow up to 30 failures before marking startup as failed
+            periodSeconds: 10      # Check every 10 seconds
+
+          # LIVENESS PROBE
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30  # Wait before first check
+            periodSeconds: 10        # Check every 10 seconds
+            timeoutSeconds: 2
+            failureThreshold: 3
+
+          # READINESS PROBE
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5   # Wait before first check
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 3
