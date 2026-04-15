@@ -11,3 +11,6 @@ If it fails, Kubernetes removes the pod from the Service endpoints but does not 
 
 Note:
 If your application has a long initialization time, always use a startupProbe to avoid false liveness failures during boot.
+
+Details:
+https://kubernetes.io/docs/tutorials/
