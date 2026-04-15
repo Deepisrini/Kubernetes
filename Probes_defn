@@ -1,0 +1,13 @@
+###Startup Probe###
+Runs first to determine if the container has started successfully.
+Until it succeeds, Kubernetes will not run liveness or readiness probes.
+Useful for apps with long startup times.
+###Liveness Probe###
+Checks if the container is still running properly.
+If it fails repeatedly, Kubernetes restarts the container.
+###Readiness Probe###
+Checks if the container is ready to serve traffic.
+If it fails, Kubernetes removes the pod from the Service endpoints but does not restart it.
+
+Note:
+If your application has a long initialization time, always use a startupProbe to avoid false liveness failures during boot.
